@@ -8,6 +8,7 @@
 
 	<title>KNN</title>
 
+
 	<!-- <script src="libraries/p5.js"></script>
 	<script src="libraries/p5.dom.js"></script>
 	<script src="libraries/p5.sound.js"></script> -->
@@ -16,38 +17,63 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/addons/p5.dom.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.1/addons/p5.sound.js"></script>
 	<script src="sketch.js"></script>
+	<script src="KNN.js"></script>
+
+
 
 	<style>
-		#selectors {
-			text-align: center;
+		#iris_input {
+			width: 60%;
+			margin-top: 10pt;
+			margin-left: 20%;
+			margin-right: 20%;
 		}
-		#button {
-			text-align: center;
-		}
+
 		#paragraph {
-			text-align: center;
-			color: aliceblue;
+			width: 60%;
+			margin-left: 20%;
+			margin-right: 20%;
 		}
+		
+		#p5sketch {
+			width: 60%;
+			margin-left: 20%;
+			margin-right: 20%; 
+			
+		}
+
 
 		body {
-			background-color: black;
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
+			background-color: rgb(77, 66, 66);
 		}
 
-		canvas {
-			margin: auto;
-		}
 	</style>
 </head>
 
 <body>
-	<div id="selectors">
+	<div id="iris_input">
+		<label for="sepalLength">sepal Length</label>
+		<input type="text" id="sepalLength" size="5" style="margin: 5px">
+		<br>
+		<label for="sepalWidth">sepal Width</label>
+		<input type="text" id="sepalWidth" size="5" style="margin: 5px">
+		<br>
+		<label for="petalLength">petal Length</label>
+		<input type="text" id="petalLength" size="5" style="margin: 5px">
+		<br>
+		<label for="petalWidth">petal Width</label>
+		<input type="text" id="petalWidth" size="5" style="margin: 5px">
+		<br>
+
+		<button id="submit" onclick="onClick()" style="margin: 10px">Submit</button>
 	</div>
-	<div id="button">
-	</div>
+
 	<div id="paragraph">
+		<p id="p1">asdf</p>
+	</div>
+
+	<div id="p5sketch">
+		<!-- p5 instance will be created here -->
 	</div>
 </body>
 
