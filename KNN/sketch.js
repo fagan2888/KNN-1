@@ -36,7 +36,7 @@ var s = function (sketch) {
 	};
 
 	sketch.draw = function () {
-
+		sketch.noLoop();
 	};
 
 	sketch.drawGrid = function () {
@@ -51,19 +51,27 @@ var s = function (sketch) {
 		}
 		for (let x = -10; x <= 10; x++) {
 			sketch.line(-sketch.width, x * scl, sketch.width, x * scl);
-			sketch.text(-x, 0, x * scl + margin * scl);
+			sketch.text(-x, -margin/2 * scl, x * scl + margin);
 		}
 	}
 
 	sketch.drawPoints = function () {
 		sketch.push();
 		sketch.noStroke();
-		sketch.fill(100, 0, 0.100);
 		if (!isdrawedpoints) {
 
 			for (let index = 0; index < Object.keys(data).length; index++) {
 				const element = data[index];
-				sketch.ellipse(scl * (margin + element.sepalLength), hei - scl * (margin + element.sepalWidth), 5);
+				if (element.species == 'setosa') {
+					sketch.fill(100, 0, 0, 100);
+				}
+				else if (element.species == 'versicolor') {
+					sketch.fill(0, 100, 0, 100);
+				}
+				else if (element.species == 'virginica') {
+					sketch.fill(0, 0, 100, 100);
+				}
+				sketch.ellipse(scl * (margin + element.sepalLength), hei - scl * (margin + element.sepalWidth), scl/5);
 			}
 		}
 		isdrawedpoints = true;
