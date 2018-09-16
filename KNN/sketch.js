@@ -2,20 +2,29 @@
 
 let ratings;
 
-function preload(){
-	data = loadJSON("ratings.json",()=>{
+function preload() {
+	data = loadJSON("ratings.json", () => {
 		ratings = data.ratings;
 	});
 }
 
 function setup() {
-	createCanvas(windowWidth, windowHeight);
-	background(0);
+	noCanvas();
 	let sel = createSelect();
-	sel.position(width/2-40,10);
+	sel.parent('selectors');
 	let sel2 = createSelect();
-	sel2.position(width/2-40,30);
-	// sel.option('kazim');
+	sel2.parent('selectors');
+	let but = createButton('push');
+	but.parent('button');
+	let p = createP('ads');
+	p.parent('paragraph');
+	
+	but.mouseClicked(() => {
+		p.html(sel.value() + ' ' + sel2.value());
+	});
+
+	
+	
 
 	Object.keys(ratings).forEach(rating => {
 		sel.option(rating);
@@ -23,10 +32,7 @@ function setup() {
 	});
 
 	print(ratings);
-	
 
-
-	
 
 }
 
