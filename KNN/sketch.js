@@ -1,15 +1,16 @@
 //@ts-nocheck
-
+var myp5;
 let data;
 let plot;
 let isdrawedpoints = false;
 let scl;
 let margin = 0.25;
+let wid, hei;
 
 var s = function (sketch) {
 
-	let wid = sketch.windowWidth * 0.6;
-	let hei = sketch.windowWidth * 0.6;
+	wid = sketch.windowWidth * 0.6;
+	hei = sketch.windowWidth * 0.6;
 	scl = 1 / 18 * sketch.windowWidth;
 
 	sketch.preload = function () {
@@ -51,7 +52,7 @@ var s = function (sketch) {
 		}
 		for (let x = -10; x <= 10; x++) {
 			sketch.line(-sketch.width, x * scl, sketch.width, x * scl);
-			sketch.text(-x, -margin/2 * scl, x * scl + margin);
+			sketch.text(-x, -margin / 2 * scl, x * scl + margin);
 		}
 	}
 
@@ -71,7 +72,7 @@ var s = function (sketch) {
 				else if (element.species == 'virginica') {
 					sketch.fill(0, 0, 100, 100);
 				}
-				sketch.ellipse(scl * (margin + element.sepalLength), hei - scl * (margin + element.sepalWidth), scl/5);
+				sketch.ellipse(scl * (margin + element.sepalLength), hei - scl * (margin + element.sepalWidth), scl / 5);
 			}
 		}
 		isdrawedpoints = true;
@@ -79,36 +80,32 @@ var s = function (sketch) {
 	}
 };
 
-var myp5 = new p5(s, document.getElementById('p5sketch'));
+myp5 = new p5(s, document.getElementById('p5sketch'));
 
-
-// function preload() {
-// 	data = loadJSON("iris.json", () => {
-// 		// ratings = data.ratings;
-// 	});
-// }
-
-// function setup() {
-// 	plot = createCanvas(500, 500);
-// 	plot.background(255);
-// 	// plot = select("#plot");
-
-// 	text('123123', 0,100);
-// 	// ax1.parent(plot);
-// 	// ax1.position(10, 10);
-
-
-
-
-
-// }
 
 // when press on button
 function onClick() {
 	let p = document.getElementById("p1");
+	let sketch = document.getElementById("p5sketch");
 	let val1 = Number(document.getElementById("sepalLength").value);
 	let val2 = Number(document.getElementById("sepalWidth").value);
 	let val3 = Number(document.getElementById("petalLength").value);
 	let val4 = Number(document.getElementById("petalWidth").value);
 	p.innerHTML = (val1 + val2 + val3 + val4);
+
+	//draw new flower
+	let newflower = {
+		"sepalLength": val1,
+		"sepalWidth": val2,
+		"petalLength": val3,	
+		"petalWidth": val4
+	};
+	// console.log(newflower);
+	myp5.push();
+	myp5.stroke('black');
+	myp5.fill('yellow');
+	myp5.rectMode(myp5.CENTER);
+	myp5.rect(scl * (margin + newflower.sepalLength), hei - scl * (margin + newflower.sepalWidth), scl / 5,scl / 5 );
+	// myp5.ellipse(scl * (margin + newflower.sepalLength), hei - scl * (margin + newflower.sepalWidth), scl / 5);
+	myp5.pop();
 }
