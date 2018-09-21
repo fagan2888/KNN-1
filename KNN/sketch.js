@@ -1,5 +1,7 @@
+
 //@ts-nocheck
 var myp5;
+let knn;
 let data;
 let plot;
 let isdrawedpoints = false;
@@ -14,7 +16,10 @@ var s = function (sketch) {
 	scl = 1 / 18 * sketch.windowWidth;
 
 	sketch.preload = function () {
-		data = sketch.loadJSON("iris.json");
+		data = sketch.loadJSON("iris.json",(d)=>{
+			let c = JSON.parse(JSON.stringify(d));
+			knn = new KNN(c.flowers,5);
+		});
 	}
 
 	sketch.setup = function () {
@@ -61,8 +66,8 @@ var s = function (sketch) {
 		sketch.noStroke();
 		if (!isdrawedpoints) {
 
-			for (let index = 0; index < Object.keys(data).length; index++) {
-				const element = data[index];
+			for (let index = 0; index < data.flowers.length; index++) {
+				const element = data.flowers[index];
 				if (element.species == 'setosa') {
 					sketch.fill(100, 0, 0, 100);
 				}
@@ -97,7 +102,7 @@ function onClick() {
 	let newflower = {
 		"sepalLength": val1,
 		"sepalWidth": val2,
-		"petalLength": val3,	
+		"petalLength": val3,
 		"petalWidth": val4
 	};
 	// console.log(newflower);
@@ -105,7 +110,8 @@ function onClick() {
 	myp5.stroke('black');
 	myp5.fill('yellow');
 	myp5.rectMode(myp5.CENTER);
-	myp5.rect(scl * (margin + newflower.sepalLength), hei - scl * (margin + newflower.sepalWidth), scl / 5,scl / 5 );
+	myp5.rect(scl * (margin + newflower.sepalLength), hei - scl * (margin + newflower.sepalWidth), scl / 5, scl / 5);
 	// myp5.ellipse(scl * (margin + newflower.sepalLength), hei - scl * (margin + newflower.sepalWidth), scl / 5);
 	myp5.pop();
 }
+
