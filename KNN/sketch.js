@@ -96,8 +96,7 @@ function onClick() {
 	let val2 = Number(document.getElementById("sepalWidth").value);
 	let val3 = Number(document.getElementById("petalLength").value);
 	let val4 = Number(document.getElementById("petalWidth").value);
-	p.innerHTML = (val1 + val2 + val3 + val4);
-
+	
 	//draw new flower
 	let newflower = {
 		"sepalLength": val1,
@@ -105,6 +104,7 @@ function onClick() {
 		"petalLength": val3,
 		"petalWidth": val4
 	};
+
 	// console.log(newflower);
 	myp5.push();
 	myp5.stroke('black');
@@ -113,5 +113,11 @@ function onClick() {
 	myp5.rect(scl * (margin + newflower.sepalLength), hei - scl * (margin + newflower.sepalWidth), scl / 5, scl / 5);
 	// myp5.ellipse(scl * (margin + newflower.sepalLength), hei - scl * (margin + newflower.sepalWidth), scl / 5);
 	myp5.pop();
+
+	//make prediction
+	let prediction = knn.predict(newflower);
+	console.log(prediction);
+	p.innerHTML = ("Predicted specie: " + prediction);
+
 }
 
