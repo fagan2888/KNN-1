@@ -11,36 +11,23 @@ class KNN {
             flower['dist'] = this.distance(x, flower);
         });
 
-        this.data.sort((a, b) => {
-            return (a['dist'] > b['dist']);
-        });
-
-        let result = this.data.slice(0, (this.k)).reduce((acc, obj) => {
-            var key = obj['species'];
-            if (!acc[key]) {
-                acc[key] = 0;
-            }
-            acc[key]++;
-            return acc;
-        }, {});
-
-        return result;
-
-        // return result.data.sort((a, b) => {
-        //     return (a['key'] < b['key']);
-        // });
+        return (KNN.sort(this.data,this.k));
     };
 
-    // groupBy(objectArray, property) {
-    //     return objectArray.reduce(function(acc, obj) {
-    //         var key = obj[property];
-    //         if (!acc[key]) {
-    //             acc[key] = [];
-    //         }
-    //         acc[key].push(obj);
-    //         return acc;
-    //     }, {});
-    // }
+    static sort(data,k) {
+        let result = Array(k).fill({ 'dist': Infinity });
+        // console.log(result);
+        for (let i = 0; i < data.length; i++) {
+            for (let j = 0; j < result.length; j++) {
+                if ((data[i]['dist']) < result[j]['dist']) {
+                    result.splice(j, 0, data[i]);
+                    break;
+                }
+            }
+        }
+        result = result.slice(0, k);
+        return result;
+    }
 
     distance(x, y) {
         return Math.sqrt((x.sepalLength - y.sepalLength) ** 2 +
@@ -48,6 +35,4 @@ class KNN {
             (x.petalLength - y.petalLength) ** 2 +
             (x.petalWidth - y.petalWidth) ** 2);
     };
-
-
 }
