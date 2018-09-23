@@ -11,8 +11,19 @@ class KNN {
             flower['dist'] = this.distance(x, flower);
         });
 
-        return (KNN.sort(this.data,this.k));
+        let topk = (KNN.sort(this.data,this.k));
+        return KNN.getlabel(topk);
     };
+    static getlabel(data) {
+        let arr = [];
+        data.forEach(flower => {
+            arr.push(flower.species);
+        });
+        return arr.sort((a,b) =>
+                arr.filter(v => v===a).length
+            - arr.filter(v => v===b).length
+        ).pop();
+    }
 
     static sort(data,k) {
         let result = Array(k).fill({ 'dist': Infinity });
